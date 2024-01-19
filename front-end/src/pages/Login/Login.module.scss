@@ -1,5 +1,79 @@
-.loginWrapper {
+.loginContainer {
+  background-color: #ccc;
+  height: 100%;
   display: flex;
-  height: 100px;
-  background-color: #a120d1;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBox {
+  text-align: center;
+
+  .appName {
+    margin-bottom: 20px;
+  }
+  .first {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .second {
+    margin-left: 5px;
+  }
+}
+
+.loginFrmBox {
+  height: 300px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heading {
+  font-size: 20px;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Sltextbox {
+  width: 100%;
+  max-width: 100%;
+  min-height: 36px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.Slbutton {
+  background-color: #007bff;
+  border-color: #007bff;
+  box-shadow: none;
+  border: none;
+  min-width: 100px;
+  min-height: 36px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.row2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: baseline;
+}
+
+.error {
+  margin: 0;
+  text-align: left;
+  font-size: 12px;
+  color: red;
 }
