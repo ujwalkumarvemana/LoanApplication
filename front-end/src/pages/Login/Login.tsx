@@ -3,7 +3,7 @@ import staticText from '../../utils/staticText';
 import styles from './Login.module.scss';
 
 const Login = () => {
-  const { lgnFrmHeading, rembrMe, lgnBtn } = staticText; // Destruct the object
+  const { lgnFrmHeading, rembrMe, lgnBtn } = staticText; // Destruct the object AND 
   const initialState = {
     username: {
       value: '',
