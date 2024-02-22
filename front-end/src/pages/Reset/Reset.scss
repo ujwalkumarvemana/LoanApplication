@@ -1,0 +1,61 @@
+.resetMain {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+}
+
+.resetSection {
+    flex-direction: column;
+    height: 250px;
+    width: 350px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 6px;
+    background: white;
+}
+
+.resetHeading {
+    margin-bottom: 40px;
+}
+
+.resetTextbox {
+    width: 100%;
+    font-size: 17px;
+    min-height: 33px;
+    border: 1px solid lightgrey;
+    margin-bottom: -14px;
+    border-radius: 5px;
+}
+
+.resetBtns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.resetBtnCon {
+    border-color: #007bff;
+    background-color: #007bff;
+    font-size: 17px;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 99px;
+    border: none;
+    color: #fff;
+}
+
+.resetBtnCan {
+    font-size: 17px;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 99px;
+    border: none;
+}
+
+.errorMesg {
+    margin-bottom: 38px;
+    color: red;
+    text-align: left;
+    font-size: 12px;
+}

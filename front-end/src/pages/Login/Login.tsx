@@ -3,7 +3,7 @@ import staticText from '../../utils/staticText';
 import styles from './Login.module.scss';
 
 const Login = () => {
-  const { lgnFrmHeading, rembrMe, lgnBtn } = staticText; // Destruct the object AND 
+  const { lgnFrmHeading, rembrMe, lgnBtn, or, forgpass, resgnewmem } = staticText; // Destruct the object AND 
   const initialState = {
     username: {
       value: '',
@@ -23,6 +23,14 @@ const Login = () => {
     const { name, value } = event.target;
     const cloneEle = { ...cloneData[name] };
     cloneEle.value = value;
+    if(value === '')
+    {
+      cloneEle.errorMsg = 'Please enter username.';
+    }
+    else
+    {
+      cloneEle.errorMsg = '';
+    }
     cloneData[name] = cloneEle;
     setData(cloneData);
   };
@@ -50,12 +58,12 @@ const Login = () => {
       cloneData.password = cloneEle;
     }
 
-    if (data.username.value === '' || data.password.value === '') {
-      setData(cloneData);
-    } else {
-      // Make an API call
-      console.log(cloneData);
-    }
+    // if (data.username.value === '' || data.password.value === '') {
+    setData(cloneData);
+    // } else {
+    //   // Make an API call
+    //   console.log(cloneData);
+    // }
   };
 
   return (
@@ -111,6 +119,13 @@ const Login = () => {
                 <button type="submit" className={styles.Slbutton}>
                   {lgnBtn}
                 </button>
+              </div>
+              <div>
+                {or}
+              </div>
+              <div className={styles.row3}>
+                <a className={styles.atag} href="http://localhost:3000/reset">{forgpass}</a>
+                <a className={styles.atag} href="">{resgnewmem}</a>
               </div>
             </div>
           </form>
