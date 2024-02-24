@@ -3,7 +3,8 @@ import staticText from '../../utils/staticText';
 import styles from './Login.module.scss';
 
 const Login = () => {
-  const { lgnFrmHeading, rembrMe, lgnBtn, or, forgpass, resgnewmem } = staticText; // Destruct the object AND 
+  const { lgnFrmHeading, rembrMe, lgnBtn, or, forgpass, resgnewmem } =
+    staticText; // Destruct the object AND
   const initialState = {
     username: {
       value: '',
@@ -23,12 +24,9 @@ const Login = () => {
     const { name, value } = event.target;
     const cloneEle = { ...cloneData[name] };
     cloneEle.value = value;
-    if(value === '')
-    {
+    if (value === '') {
       cloneEle.errorMsg = 'Please enter username.';
-    }
-    else
-    {
+    } else {
       cloneEle.errorMsg = '';
     }
     cloneData[name] = cloneEle;
@@ -120,12 +118,14 @@ const Login = () => {
                   {lgnBtn}
                 </button>
               </div>
-              <div>
-                {or}
-              </div>
+              <div>{or}</div>
               <div className={styles.row3}>
-                <a className={styles.atag} href="http://localhost:3000/reset">{forgpass}</a>
-                <a className={styles.atag} href="">{resgnewmem}</a>
+                <a className={styles.atag} href="http://localhost:3000/reset">
+                  {forgpass}
+                </a>
+                <a className={styles.atag} href="">
+                  {resgnewmem}
+                </a>
               </div>
             </div>
           </form>
