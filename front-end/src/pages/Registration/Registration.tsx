@@ -1,41 +1,67 @@
-import {
-  Box,
-  Button,
-  FilledInput,
-  FormControl,
-  FormControlLabel,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Paper,
-  Switch,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import InputIcon from '@mui/icons-material/Input';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
+import CustomTextField from '../../components/FormControlls/CustomTextField';
 import LockIcon from '@mui/icons-material/Lock';
+import { LoadingButton } from '@mui/lab';
 
 const Registration = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const formValues = {
+    username: '',
+    password: '',
+    confPassword: '',
+    email: '',
   };
+  const formErrors = {
+    username: '',
+    password: '',
+    confPassword: '',
+    email: '',
+  };
+  const [formState, setFormState] = useState(formValues);
+  const [formMsgs, setFormMsgs] = useState(formErrors);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    const cloneFormState: any = { ...formState };
+    cloneFormState[name] = value;
+
+    const cloneFormMsgs: any = { ...formMsgs };
+    if (value === '') {
+      cloneFormMsgs[name] = 'Please enter ' + name;
+    } else {
+      cloneFormMsgs[name] = '';
+    }
+    //cloneFormState.username = value
+    setFormState(cloneFormState);
+    setFormMsgs(cloneFormMsgs);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(() => {
+        setLoading(false);
+        navigate('/login');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const submitEnable = !(
+    formState.username !== '' &&
+    formState.password !== '' &&
+    formState.email !== '' &&
+    formState.confPassword !== ''
+  );
+
   return (
     <Box
       display="flex"
@@ -62,9 +88,7 @@ const Registration = () => {
           gap={2}
         >
           <InputIcon sx={{ fontSize: 40 }} />
-          <Typography component={Box} variant="h4">
-            Register
-          </Typography>
+          <Typography variant="h4">Register</Typography>
         </Box>
         <Box p={2}>
           <Button
@@ -76,105 +100,54 @@ const Registration = () => {
             Already have an account? Sign in!
           </Button>
           <Box>
-          <FormControl
-              variant="filled"
-              fullWidth
-              sx={{ marginBottom: '22px' }}
-            >
-              <InputLabel htmlFor="filled-adornment-name">Full Name</InputLabel>
-              <FilledInput
-                id="filled-adornment-name"
-                type="text"
-                endAdornment={
-                  <InputAdornment position="start">
-                    <IconButton
-                    edge="end"
-                    >
-                      <PersonIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
+            <form onSubmit={handleSubmit}>
+              <CustomTextField
+                label="Username"
+                name="username"
+                value={formState.username}
+                errMsg={formMsgs.username}
+                onHandleChange={handleChange}
+                icon={<PersonIcon />}
               />
-            </FormControl>
-            <FormControl
-              variant="filled"
-              fullWidth
-              sx={{ marginBottom: '22px' }}
-            >
-              <InputLabel htmlFor="filled-adornment-email">Email</InputLabel>
-              <FilledInput
-                id="filled-adornment-email"
-                type="text"
-                endAdornment={
-                  <InputAdornment position="start">
-                    <IconButton
-                    edge="end"
-                    >
-                      <EmailIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
+
+              <CustomTextField
+                label="Email"
+                name="email"
+                value={formState.email}
+                errMsg={formMsgs.email}
+                onHandleChange={handleChange}
+                icon={<EmailIcon />}
               />
-            </FormControl>
-            <FormControl
-              sx={{ marginBottom: '22px' }}
-              variant="filled"
-              fullWidth
-            >
-              <InputLabel htmlFor="filled-adornment-password">
-                Password
-              </InputLabel>
-              <FilledInput
-                id="filled-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+
+              <CustomTextField
+                label="Password"
+                name="password"
+                value={formState.password}
+                errMsg={formMsgs.password}
+                onHandleChange={handleChange}
+                icon={<LockIcon />}
+                type="password"
               />
-            </FormControl>
-            <FormControl
-              sx={{ marginBottom: '22px' }}
-              variant="filled"
-              fullWidth
-            >
-              <InputLabel htmlFor="filled-adornment-password">
-                Confirm Password
-              </InputLabel>
-              <FilledInput
-                id="filled-adornment-password"
-                type={showConfirmPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {/* <LockIcon /> */}
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+
+              <CustomTextField
+                label="Confirm Password"
+                name="confPassword"
+                value={formState.confPassword}
+                errMsg={formMsgs.confPassword}
+                onHandleChange={handleChange}
+                icon={<LockIcon />}
+                type="password"
               />
-            </FormControl>
-            <FormControlLabel
-              sx={{ marginBottom: '22px' }}
-              control={<Switch defaultChecked color="secondary" />}
-              label="Keep me signed in"
-            />
-            <Button fullWidth variant="contained" type="button">
-              Sign In
-            </Button>
+              <LoadingButton
+                loading={loading}
+                variant="contained"
+                fullWidth
+                disabled={submitEnable}
+                type="submit"
+              >
+                Sign Up
+              </LoadingButton>
+            </form>
           </Box>
         </Box>
       </Box>
