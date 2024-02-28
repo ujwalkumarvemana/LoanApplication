@@ -1,8 +1,10 @@
 import './Reset.scss';
 import staticText from '../../utils/staticText';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Reset() {
+    const navigate = useNavigate();
     const { resetFrmHeading } = staticText;
     let initialdata = {
         username: {
@@ -59,7 +61,7 @@ function Reset() {
                     </div>
                     <div className="resetBtns">
                         <button type="button" className="resetBtnCon" onClick={OnContinue}>Continue</button>
-                        <button type="button" className="resetBtnCan">Cancel</button>
+                        <button type="button" className="resetBtnCan" onClick={() => navigate('/')}>Cancel</button>
                     </div>
                 </form>
             </div>

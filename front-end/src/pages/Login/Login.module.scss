@@ -76,11 +76,16 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  height: 45px;
+  height: 50px;
 }
 
-.atag {
-  text-decoration: none;
+.btn {
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  color: dodgerblue;
+  padding-left: 0px;
 }
 
 .error {

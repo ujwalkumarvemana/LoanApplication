@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import staticText from '../../utils/staticText';
 import styles from './Login.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const { lgnFrmHeading, rembrMe, lgnBtn, or, forgpass, resgnewmem } =
     staticText; // Destruct the object AND
   const initialState = {
@@ -120,12 +122,12 @@ const Login = () => {
               </div>
               <div>{or}</div>
               <div className={styles.row3}>
-                <a className={styles.atag} href="http://localhost:3000/reset">
-                  {forgpass}
-                </a>
-                <a className={styles.atag} href="">
-                  {resgnewmem}
-                </a>
+                <button className={styles.btn} onClick={() => navigate('/reset')}>
+                {forgpass}
+                </button>
+                <button className={styles.btn}>
+                {resgnewmem}
+                </button>
               </div>
             </div>
           </form>

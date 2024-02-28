@@ -20,12 +20,16 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
 
 const Registration = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -69,9 +73,29 @@ const Registration = () => {
             color="secondary"
             onClick={() => navigate('/login')}
           >
-            Don't you have an account? Sign up now!
+            Already have an account? Sign in!
           </Button>
           <Box>
+          <FormControl
+              variant="filled"
+              fullWidth
+              sx={{ marginBottom: '22px' }}
+            >
+              <InputLabel htmlFor="filled-adornment-name">Full Name</InputLabel>
+              <FilledInput
+                id="filled-adornment-name"
+                type="text"
+                endAdornment={
+                  <InputAdornment position="start">
+                    <IconButton
+                    edge="end"
+                    >
+                      <PersonIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             <FormControl
               variant="filled"
               fullWidth
@@ -83,7 +107,9 @@ const Registration = () => {
                 type="text"
                 endAdornment={
                   <InputAdornment position="start">
-                    <IconButton>
+                    <IconButton
+                    edge="end"
+                    >
                       <EmailIcon />
                     </IconButton>
                   </InputAdornment>
@@ -115,7 +141,32 @@ const Registration = () => {
                 }
               />
             </FormControl>
-
+            <FormControl
+              sx={{ marginBottom: '22px' }}
+              variant="filled"
+              fullWidth
+            >
+              <InputLabel htmlFor="filled-adornment-password">
+                Confirm Password
+              </InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {/* <LockIcon /> */}
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             <FormControlLabel
               sx={{ marginBottom: '22px' }}
               control={<Switch defaultChecked color="secondary" />}
