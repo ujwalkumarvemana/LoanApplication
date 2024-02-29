@@ -11,13 +11,13 @@ import { LoadingButton } from '@mui/lab';
 const Registration = () => {
   const navigate = useNavigate();
   const formValues = {
-    username: '',
+    fullname: '',
     password: '',
     confPassword: '',
     email: '',
   };
   const formErrors = {
-    username: '',
+    fullname: '',
     password: '',
     confPassword: '',
     email: '',
@@ -33,11 +33,28 @@ const Registration = () => {
 
     const cloneFormMsgs: any = { ...formMsgs };
     if (value === '') {
-      cloneFormMsgs[name] = 'Please enter ' + name;
+      cloneFormMsgs[name] = 'Please enter ' + (name === 'confPassword' ? 'confirm password' : name === 'fullname' ? 'name' : name);
     } else {
-      cloneFormMsgs[name] = '';
+      if(name === 'fullname' && !(/^[a-z]+$/i.test(value)))
+      {
+        cloneFormMsgs[name] = 'Enter a valid name';
+      }
+      else if(name === 'email' && !(/.+@.+\.[A-Za-z]+$/.test(value)))
+      {
+         cloneFormMsgs[name] = 'Enter a valid ' + name;
+      }
+      else if(name === 'password' && value.length < 6)
+      {
+        cloneFormMsgs[name] = 'Password must be atleast 6 characters'
+      }
+      else if(name === 'confPassword' && formState.password !== value)
+      {
+        cloneFormMsgs[name] = 'Passwords must be same'
+      }
+      else{
+        cloneFormMsgs[name] = ''
+      }
     }
-    //cloneFormState.username = value
     setFormState(cloneFormState);
     setFormMsgs(cloneFormMsgs);
   };
@@ -56,7 +73,7 @@ const Registration = () => {
   };
 
   const submitEnable = !(
-    formState.username !== '' &&
+    formState.fullname !== '' &&
     formState.password !== '' &&
     formState.email !== '' &&
     formState.confPassword !== ''
@@ -102,10 +119,10 @@ const Registration = () => {
           <Box>
             <form onSubmit={handleSubmit}>
               <CustomTextField
-                label="Username"
-                name="username"
-                value={formState.username}
-                errMsg={formMsgs.username}
+                label="Full Name"
+                name="fullname"
+                value={formState.fullname}
+                errMsg={formMsgs.fullname}
                 onHandleChange={handleChange}
                 icon={<PersonIcon />}
               />
@@ -117,6 +134,7 @@ const Registration = () => {
                 errMsg={formMsgs.email}
                 onHandleChange={handleChange}
                 icon={<EmailIcon />}
+                type="email"
               />
 
               <CustomTextField
