@@ -35,7 +35,7 @@ const Registration = () => {
     if (value === '') {
       cloneFormMsgs[name] = 'Please enter ' + (name === 'confPassword' ? 'confirm password' : name === 'fullname' ? 'name' : name);
     } else {
-      if(name === 'fullname' && !(/^[a-z]+$/i.test(value)))
+      if(name === 'fullname' && !(/^[a-z\s]+$/i.test(value)))
       {
         cloneFormMsgs[name] = 'Enter a valid name';
       }
